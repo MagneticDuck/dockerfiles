@@ -1,7 +1,8 @@
 FROM dock0/arch
 
-# install basic utilities
-RUN pacman -Syu --noconfirm man git patch
+# install basic utilities, prep system
+ADD ./pacman.conf /etc/pacman.conf
+RUN pacman -Syu --noconfirm git patch
 
 # make user account
 RUN pacman -S --noconfirm sudo ;\

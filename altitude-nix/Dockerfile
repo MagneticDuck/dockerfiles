@@ -4,7 +4,8 @@ FROM magneticduck/arch-nix
 USER root
 RUN pacman -S --noconfirm jre7-openjdk ;\
   curl http://installer.altitudegame.com/0.0.1/altitude.sh > altitude.sh ;\
-  chmod a+rwx ./altitude.sh
+  chmod a+rwx ./altitude.sh ;\
+  mkdir -p /usr/lib/jre/bin ; cp /usr/bin/java /usr/lib/jre/bin/ ;
 
 # set normal user
 USER user
