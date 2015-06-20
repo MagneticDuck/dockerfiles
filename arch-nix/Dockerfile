@@ -2,11 +2,12 @@ FROM dock0/arch
 
 # install basic utilities, prep system
 ADD ./pacman.conf /etc/pacman.conf
-RUN pacman -Syu --noconfirm git patch
+RUN pacman -Syu --noconfirm git patch sudo ;\
+  pacman -Rdd --noconfirm gcc-libs ;\
+  pacman -S --noconfirm gcc-libs-multilib
 
 # make user account
-RUN pacman -S --noconfirm sudo ;\
-  mkdir /home/user ;\
+RUN mkdir -p /home/user ;\
   useradd -d /home/user user ;\
   echo "user:password" | chpasswd ;\
   echo "root:password" | chpasswd ;\

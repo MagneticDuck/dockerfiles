@@ -1,1 +1,1 @@
-sudo docker build --no-cache --tag="magneticduck/arch-nix" .
+sudo docker build --tag="magneticduck/arch-nix" .
