@@ -1,25 +1,47 @@
-echo "launching server...";
-rm -rf /home/user/altitude-files/servers ;
-nohup /home/user/altitude-files/server_launcher &> /dev/null &
+altitude=/home/user/altitude/
+altitudeFiles=/home/user/altitude-files/
 
-echo "waiting for server to start...";
-while [ ! -f /home/user/altitude-files/servers/command.txt -o ! -f /home/user/altitude-files/servers/log.txt ];
-do true; done
+echo "stage 1: building mod"
+echo ">>pulling repository"
+rm -rf ./altitude-mods/
+git clone https://github.com/MagneticDuck/altitude-mods/
 
-sleep 1;
+echo ">>building mod..."
+nix-build ./altitude-mods/ -A $1
 
-echo "making symlinks...";
-mkdir -p /home/user/altitude/servers/
-for i in /home/user/altitude-files/servers/* ; 
-  do ln -s $i /home/user/altitude/servers/$(basename $i);
-done
+echo "stage 2: setting up for launch"
+echo ">>killing server..."
+pkill java
 
-echo "launching mod service...";
-if [ -x /home/user/altitude/result ]; 
-then
-  nohup /home/user/altitude/result &
-else
-  echo "  (no mod detected, running in vanilla mode)" ;
+echo ">>loading server files..."
+rm -rf $altitudeFiles/servers/
+if [ -d result/servers ];
+then 
+  mkdir -p $altitudeFiles/servers/
+  cp result/servers/* $altitudeFiles/servers/
+else 
+  echo "  (no servers directory in mod, doing nothing)"
 fi
+
+echo "stage 3: launching"
+echo ">>launching server...";
+nohup /home/user/altitude-files/server_launcher &> $altitude/server-log &
+
+echo ">>waiting for server to start...";
+while [ ! -f $altitudeFiles/servers/command.txt -o ! -f $altitudeFiles/servers/log.txt ];
+do true; done
+sleep 1
+
+echo ">>making symlinks...";
+mkdir -p $altitude/servers/
+for i in command.txt log.txt ;
+  do 
+    rm -f $altitude/servers/$i
+    ln -s $altitudeFiles/servers/$i $altitude/servers/$i; done
+
+echo ">>launching mod service...";
+if [ -x result/run ]; 
+then nohup result/run &> $altitude/mod-log &
+else echo "  (no binary detected, doing nothing)" ; fi
 
 exit 0
