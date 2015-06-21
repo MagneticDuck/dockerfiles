@@ -17,7 +17,9 @@ done
 echo "launching mod service...";
 if [ -x /home/user/altitude/result ]; 
 then
-  /home/user/altitude/result ;
+  nohup /home/user/altitude/result &
 else
   echo "  (no mod detected, running in vanilla mode)" ;
 fi
+
+exit 0
