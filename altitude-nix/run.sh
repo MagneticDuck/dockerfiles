@@ -13,6 +13,9 @@ echo "stage 2: setting up for launch"
 echo ">>killing server..."
 pkill java
 
+echo ">>killing mod process..."
+pkill run
+
 echo ">>loading server files..."
 rm -rf $altitudeFiles/servers/
 if [ -d result/servers ];
@@ -41,7 +44,7 @@ for i in command.txt log.txt ;
 
 echo ">>launching mod service...";
 if [ -x result/run ]; 
-then nohup result/run &> $altitude/mod-log &
+then nohup result/run &
 else echo "  (no binary detected, doing nothing)" ; fi
 
 exit 0

@@ -17,5 +17,6 @@ RUN yes '' | ./altitude.sh
 RUN mv /home/user/altitude /home/user/altitude-files ;\
   mkdir -p /home/user/altitude
 ADD ./run.sh /home/user/altitude/run.sh
+ADD ./monitor.sh /home/user/altitude/monitor.sh
 
 WORKDIR /home/user/altitude
