@@ -23,7 +23,13 @@ then
   mkdir -p $altitudeFiles/servers/
   cp result/servers/* $altitudeFiles/servers/
 else 
-  echo "  (no servers directory in mod, doing nothing)"
+  echo "  (no server config directory in mod)"
+fi
+if [ -f result/servers ];
+then 
+  cp result/maps/* $altitudeFiles/maps/
+else 
+  echo "  (no extra maps in mod)"
 fi
 
 echo "stage 3: launching"
@@ -45,6 +51,6 @@ for i in command.txt log.txt ;
 echo ">>launching mod service...";
 if [ -x result/run ]; 
 then nohup result/run &
-else echo "  (no binary detected, doing nothing)" ; fi
+else echo "  (no service detected, doing nothing)" ; fi
 
 exit 0
