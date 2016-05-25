@@ -17,16 +17,18 @@ echo ">>killing mod process..."
 pkill run
 
 echo ">>loading server files..."
-rm -rf $altitudeFiles/servers/
 if [ -d result/servers ];
 then 
   mkdir -p $altitudeFiles/servers/
+  chmod a+rw -R $altitudeFiles/servers/
   cp result/servers/* $altitudeFiles/servers/
 else 
   echo "  (no server config directory in mod)"
 fi
-if [ -f result/servers ];
+if [ -f result/maps ];
 then 
+  mkdir -p $altitudeFiles/maps/
+  chmod a+rw -R $altitudeFiles/maps/
   cp result/maps/* $altitudeFiles/maps/
 else 
   echo "  (no extra maps in mod)"
