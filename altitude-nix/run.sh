@@ -25,7 +25,7 @@ then
 else 
   echo "  (no server config directory in mod)"
 fi
-if [ -f result/maps ];
+if [ -d result/maps ];
 then 
   mkdir -p $altitudeFiles/maps/
   chmod a+rw -R $altitudeFiles/maps/
