@@ -18,19 +18,19 @@ pkill run
 
 echo ">>loading server files..."
 if [ -d result/servers ];
-then 
+then
   mkdir -p $altitudeFiles/servers/
   chmod a+rw -R $altitudeFiles/servers/
   cp result/servers/* $altitudeFiles/servers/
-else 
+else
   echo "  (no server config directory in mod)"
 fi
 if [ -d result/maps ];
-then 
+then
   mkdir -p $altitudeFiles/maps/
   chmod a+rw -R $altitudeFiles/maps/
   cp result/maps/* $altitudeFiles/maps/
-else 
+else
   echo "  (no extra maps in mod)"
 fi
 
@@ -46,13 +46,15 @@ sleep 1
 echo ">>making symlinks...";
 mkdir -p $altitude/servers/
 for i in command.txt log.txt ;
-  do 
-    rm -f $altitude/servers/$i
-    ln -s $altitudeFiles/servers/$i $altitude/servers/$i; done
+do
+  rm -f $altitude/servers/$i
+  ln -s $altitudeFiles/servers/$i $altitude/servers/$i; 
+done
 
 echo ">>launching mod service...";
-if [ -x result/run ]; 
+if [ -x result/run ];
 then nohup result/run &
 else echo "  (no service detected, doing nothing)" ; fi
 
 exit 0
+
