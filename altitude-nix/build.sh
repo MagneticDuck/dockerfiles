@@ -1,1 +1,1 @@
-sudo docker build --tag="magneticduck/altitude-nix" .
+sudo docker build --tag="magneticduck/altitude-nix" --net=host .

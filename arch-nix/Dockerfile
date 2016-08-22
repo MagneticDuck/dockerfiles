@@ -21,7 +21,8 @@ ENV USER user
 WORKDIR /home/user
 
 # install nix
-RUN curl http://nixos.org/nix/install | bash ;\
+RUN source /etc/profile.d/perlbin.sh ;\
+  curl http://nixos.org/nix/install | bash ;\
   source ~/.nix-profile/etc/profile.d/nix.sh 
 RUN echo "source /home/user/.nix-profile/etc/profile.d/nix.sh" > .profile
 
